@@ -1,0 +1,7 @@
+# This it the name of the used PAGE object (example page, pagina, seite)
+mfc_seotitle.page = page
+
+# This defines the load order of the userFunc in the PAGE.headerData
+mfc_seotitle.object = 1335
+
+mfc_seotitle.by =
