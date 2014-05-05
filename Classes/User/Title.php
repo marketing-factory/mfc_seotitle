@@ -57,8 +57,8 @@ class Tx_MfcSeoTitle_User_Title {
 	public function getPageTitle($content, $conf) {
 		$title = $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] ? $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] : $GLOBALS['TSFE']->page['title'];
 
-		if ($conf['stdWrap.']) {
-			$title = $this->cObj->stdWrap($title, $conf['stdWrap.']);
+		if ($conf['pageTitleStdWrap.']) {
+			$title = $this->cObj->stdWrap($title, $conf['pageTitleStdWrap.']);
 		}
 
 		return trim($title);

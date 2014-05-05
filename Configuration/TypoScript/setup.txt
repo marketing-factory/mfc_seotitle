@@ -4,5 +4,5 @@ config.noPageTitle = 2
 {$mfc_seotitle.page}.{$mfc_seotitle.object} = USER
 {$mfc_seotitle.page}.{$mfc_seotitle.object} {
 	userFunc = Tx_MfcSeoTitle_User_Title->render
-	stdWrap.noTrimWrap = | | {$mfc_seotitle.by}|
+	pageTitleStdWrap.noTrimWrap = | | {$mfc_seotitle.by}|
 }
