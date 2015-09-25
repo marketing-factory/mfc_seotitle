@@ -58,7 +58,7 @@ class Tx_MfcSeoTitle_User_Title
      */
     public function getPageTitle($content, $conf)
     {
-        if (isset($GLOBALS['TSFE']->altPageTitle)) {
+        if (isset($GLOBALS['TSFE']->altPageTitle) && $GLOBALS['TSFE']->altPageTitle != '') {
             $title = $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] ?
                 $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] : $GLOBALS['TSFE']->altPageTitle;
         } else {
