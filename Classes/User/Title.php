@@ -27,42 +27,49 @@
  *
  * @author Sebastian Fischer <sf@marketing-factory.de>
  */
-class Tx_MfcSeoTitle_User_Title {
-	/**
-	 * @var array
-	 */
-	protected $conf = array();
+class Tx_MfcSeoTitle_User_Title
+{
+    /**
+     * @var array
+     */
+    protected $conf = array();
 
-	/**
-	 * @var tslib_cObj
-	 */
-	public $cObj;
+    /**
+     * @var tslib_cObj
+     */
+    public $cObj;
 
-	/**
-	 * Render method that gets called by typoscript for adding the meta tag to <head>
-	 *
-	 * @param string $content
-	 * @param array $conf
-	 */
-	public function render($content, $conf) {
-		$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
-		$pageRenderer->addMetaTag('<title>' . $this->getPageTitle($content, $conf) . '</title>');
-	}
+    /**
+     * Render method that gets called by typoscript for adding the meta tag to <head>
+     *
+     * @param string $content
+     * @param array $conf
+     */
+    public function render($content, $conf)
+    {
+        $pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
+        $pageRenderer->addMetaTag('<title>' . $this->getPageTitle($content, $conf) . '</title>');
+    }
 
-	/**
-	 * Generate pageTitle
-	 * @param array $conf
-	 * @return string
-	 */
-	public function getPageTitle($content, $conf) {
-		$title = $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] ? $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] : $GLOBALS['TSFE']->page['title'];
+    /**
+     * Generate pageTitle
+     * @param array $conf
+     * @return string
+     */
+    public function getPageTitle($content, $conf)
+    {
+        if (isset($GLOBALS['TSFE']->altPageTitle)) {
+            $title = $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] ?
+                $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] : $GLOBALS['TSFE']->altPageTitle;
+        } else {
+            $title = $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] ?
+                $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] : $GLOBALS['TSFE']->page['title'];
+        }
 
-		if ($conf['pageTitleStdWrap.']) {
-			$title = $this->cObj->stdWrap($title, $conf['pageTitleStdWrap.']);
-		}
+        if ($conf['pageTitleStdWrap.']) {
+            $title = $this->cObj->stdWrap($title, $conf['pageTitleStdWrap.']);
+        }
 
-		return trim($title);
-	}
+        return trim($title);
+    }
 }
-
-?>
