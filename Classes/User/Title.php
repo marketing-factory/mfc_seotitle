@@ -21,13 +21,19 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+namespace Mfc\MfcSeotitle\User;
+
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Contoller for imports
  *
  * @author Sebastian Fischer <sf@marketing-factory.de>
  */
-class Tx_MfcSeoTitle_User_Title
+class Title
 {
     /**
      * @var array
@@ -35,7 +41,7 @@ class Tx_MfcSeoTitle_User_Title
     protected $conf = array();
 
     /**
-     * @var tslib_cObj
+     * @var ContentObjectRenderer
      */
     public $cObj;
 
@@ -47,23 +53,31 @@ class Tx_MfcSeoTitle_User_Title
      */
     public function render($content, $conf)
     {
-        $pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
-        $pageRenderer->addMetaTag('<title>' . $this->getPageTitle($content, $conf) . '</title>');
+        /** @var  $pageRenderer */
+        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+        $pageRenderer->addMetaTag(
+            '<title>' . $this->getPageTitle($content, $conf) . '</title>'
+        );
     }
 
     /**
      * Generate pageTitle
+     *
      * @param array $conf
      * @return string
      */
-    public function getPageTitle($content, $conf)
+    public function getPageTitle($conf)
     {
-        if (isset($GLOBALS['TSFE']->altPageTitle) && $GLOBALS['TSFE']->altPageTitle != '') {
-            $title = $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] ?
-                $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] : $GLOBALS['TSFE']->altPageTitle;
+        $tsfe = $this->getTypoScriptFrontendController();
+
+        if (isset($tsfe->altPageTitle) && $tsfe->altPageTitle != '') {
+            $title = $tsfe->page['tx_mfcseotitle_title']
+                ? $tsfe->page['tx_mfcseotitle_title']
+                : $tsfe->altPageTitle;
         } else {
-            $title = $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] ?
-                $GLOBALS['TSFE']->page['tx_mfcseotitle_title'] : $GLOBALS['TSFE']->page['title'];
+            $title = $tsfe->page['tx_mfcseotitle_title']
+                ? $tsfe->page['tx_mfcseotitle_title']
+                : $tsfe->page['title'];
         }
 
         if ($conf['pageTitleStdWrap.']) {
@@ -72,4 +86,13 @@ class Tx_MfcSeoTitle_User_Title
 
         return trim($title);
     }
+
+    /**
+     * @return TypoScriptFrontendController
+     */
+    public function getTypoScriptFrontendController()
+    {
+        return $GLOBALS['TSFE'];
+    }
+
 }
