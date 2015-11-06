@@ -23,7 +23,6 @@
  ***************************************************************/
 namespace Mfc\MfcSeotitle\User;
 
-use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -53,8 +52,8 @@ class Title
      */
     public function render($content, $conf)
     {
-        /** @var  $pageRenderer */
-        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+        /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
+        $pageRenderer = GeneralUtility::makeInstance('TYPO3\CMS\Core\Page\PageRenderer');
         $pageRenderer->addMetaTag(
             '<title>' . $this->getPageTitle($content, $conf) . '</title>'
         );
