@@ -1,9 +1,9 @@
 <?php
+defined('TYPO3_MODE') or die('Access denied.');
+/** @var string $_EXTKEY */
 
-if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
-}
-
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'Title');
-
-?>
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+    $_EXTKEY,
+    'Configuration/TypoScript/',
+    'Title'
+);

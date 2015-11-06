@@ -1,7 +1,5 @@
 <?php
+defined('TYPO3_MODE') or die('Access denied.');
 
-/** @noinspection PhpUndefinedVariableInspection */
 $GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] .= ',tx_mfcseotitle_title';
 $GLOBALS['TYPO3_CONF_VARS']['FE']['pageOverlayFields'] .= ',tx_mfcseotitle_title';
-
-?>
