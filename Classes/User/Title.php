@@ -79,7 +79,7 @@ class Title
                 : $tsfe->page['title'];
         }
 
-        if ($conf['pageTitleStdWrap.']) {
+        if (isset($conf['pageTitleStdWrap.'])) {
             $title = $this->cObj->stdWrap($title, $conf['pageTitleStdWrap.']);
         }
 
