@@ -62,10 +62,11 @@ class Title
     /**
      * Generate pageTitle
      *
+     * @param string $content
      * @param array $conf
      * @return string
      */
-    public function getPageTitle($conf)
+    public function getPageTitle($content, $conf)
     {
         $tsfe = $this->getTypoScriptFrontendController();
 
