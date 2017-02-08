@@ -2,10 +2,11 @@
   "name": "mfc/mfc-seotitle",
   "description": "Build another title as displayed in BE if you want",
   "license": "proprietary",
+  "type": "typo3-cms-extension",
   "authors": [
     {
-      "name": "Alexander Schnitzler",
-      "email": "typo3@alexanderschnitzler.de"
+      "name": "Simon Schmidt",
+      "email": "typo3@marketing-factory.de"
     }
   ],
   "require": {
