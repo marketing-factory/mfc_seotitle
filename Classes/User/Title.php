@@ -1,4 +1,6 @@
 <?php
+namespace Mfc\MfcSeotitle\User;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -21,23 +23,20 @@
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-namespace Mfc\MfcSeotitle\User;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
- * Contoller for imports
- *
- * @author Sebastian Fischer <sf@marketing-factory.de>
+ * Controller for imports
  */
 class Title
 {
     /**
      * @var array
      */
-    protected $conf = array();
+    protected $conf = [];
 
     /**
      * @var ContentObjectRenderer
@@ -53,7 +52,7 @@ class Title
     public function render($content, $conf)
     {
         /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
-        $pageRenderer = GeneralUtility::makeInstance('TYPO3\CMS\Core\Page\PageRenderer');
+        $pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
         $pageRenderer->addMetaTag(
             '<title>' . $this->getPageTitle($content, $conf) . '</title>'
         );
@@ -64,27 +63,26 @@ class Title
      *
      * @param string $content
      * @param array $conf
+     *
      * @return string
      */
     public function getPageTitle($content, $conf)
     {
-        $tsfe = $this->getTypoScriptFrontendController();
+        $controller = $this->getTypoScriptFrontendController();
 
-        if (isset($tsfe->altPageTitle) && $tsfe->altPageTitle != '') {
-            $title = $tsfe->page['tx_mfcseotitle_title']
-                ? $tsfe->page['tx_mfcseotitle_title']
-                : $tsfe->altPageTitle;
-        } else {
-            $title = $tsfe->page['tx_mfcseotitle_title']
-                ? $tsfe->page['tx_mfcseotitle_title']
-                : $tsfe->page['title'];
-        }
+        $title = $controller->altPageTitle != '' ?
+            $controller->altPageTitle :
+            $controller->page['title'];
+
+        $title = $controller->page['tx_mfcseotitle_title']
+            ? $controller->page['tx_mfcseotitle_title']
+            : $title;
 
         if (isset($conf['pageTitleStdWrap.'])) {
             $title = $this->cObj->stdWrap($title, $conf['pageTitleStdWrap.']);
         }
 
-        return trim($title);
+        return $content . trim($title);
     }
 
     /**
@@ -94,5 +92,4 @@ class Title
     {
         return $GLOBALS['TSFE'];
     }
-
 }
