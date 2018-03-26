@@ -53,9 +53,7 @@ class Title
     {
         /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
         $pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
-        $pageRenderer->addMetaTag(
-            '<title>' . $this->getPageTitle($content, $conf) . '</title>'
-        );
+        $pageRenderer->setTitle($this->getPageTitle($content, $conf));
     }
 
     /**
