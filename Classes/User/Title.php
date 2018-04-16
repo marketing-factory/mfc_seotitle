@@ -80,7 +80,7 @@ class Title
             $title = $this->cObj->stdWrap($title, $conf['pageTitleStdWrap.']);
         }
 
-        return $content . trim($title);
+        return $content . trim(html_entity_decode($title));
     }
 
     /**
